@@ -6,28 +6,28 @@
   
   <!-- Primary Meta Tags -->
   <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
+  <meta name="title" content="What You Don't Know <i>Can</i> Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <meta name="description" content="Safe control techniques, such as Hamilton-Jacobi reachability, provide principled methods for synthesizing safety-preserving robot policies but typically assume hand-designed state spaces and full observability. Recent work has relaxed these assumptions via latent-space safe control, where state representations and dynamics are learned jointly through world models that reconstruct future high-dimensional observations (e.g., RGB images) from current observations and actions. This enables safety constraints that are difficult to specify analytically (e.g., spilling) to be framed as classification problems in latent space, allowing controllers to operate directly from raw observations. However, these methods assume that safety-critical features are observable in the learned latent state. We ask: when are latent state spaces sufficient for safe control? To study this, we examine temperature-based failures, comparable to overheating in cooking or manufacturing tasks, and find that RGB-only observations can produce myopic safety behaviors, e.g., avoiding seeing failure states rather than preventing failure itself. To predict such behaviors, we introduce a mutual information-based measure that identifies when observations fail to capture safety-relevant features. Finally, we propose a multimodal-supervised training strategy that shapes the latent state with additional sensory inputs during training, but requires no extra modalities at deployment, and validate our approach in simulation and on hardware with a Franka Research 3 manipulator preventing a pot of wax from overheating.">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
-  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
+  <meta name="keywords" content="latent-space safe control, partially observable safety constraints, mutual information, multimodal machine learning, robotics">
   <!-- TODO: List all authors -->
-  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="author" content="Matthew Kim, Kensuke Nakamura, Andrea Bajcsy">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
   <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
+  <meta property="og:site_name" content="Intent Robotics Lab">
   <!-- TODO: Same as paper title above -->
-  <meta property="og:title" content="PAPER_TITLE">
+  <meta property="og:title" content="What You Don't Know <i>Can</i> Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
   <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <meta property="og:description" content="Safe control techniques, such as Hamilton-Jacobi reachability, provide principled methods for synthesizing safety-preserving robot policies but typically assume hand-designed state spaces and full observability. Recent work has relaxed these assumptions via latent-space safe control, where state representations and dynamics are learned jointly through world models that reconstruct future high-dimensional observations (e.g., RGB images) from current observations and actions. This enables safety constraints that are difficult to specify analytically (e.g., spilling) to be framed as classification problems in latent space, allowing controllers to operate directly from raw observations. However, these methods assume that safety-critical features are observable in the learned latent state. We ask: when are latent state spaces sufficient for safe control? To study this, we examine temperature-based failures, comparable to overheating in cooking or manufacturing tasks, and find that RGB-only observations can produce myopic safety behaviors, e.g., avoiding seeing failure states rather than preventing failure itself. To predict such behaviors, we introduce a mutual information-based measure that identifies when observations fail to capture safety-relevant features. Finally, we propose a multimodal-supervised training strategy that shapes the latent state with additional sensory inputs during training, but requires no extra modalities at deployment, and validate our approach in simulation and on hardware with a Franka Research 3 manipulator preventing a pot of wax from overheating.">
   <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <meta property="og:url" content="https://cmu-intentlab.github.io/multisafe/">
   <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image" content="static/images/unicycletoast.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
@@ -77,8 +77,8 @@
   <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
   
   <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="static/images/intent_logo_icon_transparent-highQuality (1).png">
+  <link rel="apple-touch-icon" href="static/images/intent_logo_icon_transparent-highQuality (1).png">
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -241,57 +241,34 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-2 publication-title">What You Don't Know <i>Can</i> Hurt You: <br> How Well do Latent Safety
+              Filters Understand Partially Observable Safety Constraints?</h1>
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="https://www.linkedin.com/in/mattkiim/" target="_blank">Matthew Kim</a><sup>*1</sup>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="https://kensukenk.github.io/" target="_blank">Kensuke Nakamura</a><sup>*2</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
+                    <a href="https://www.cs.cmu.edu/~abajcsy/" target="_blank">Andrea Bajcsy
+                    </a><sup>2</sup>
                   </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Institution Name<br>Conference name and year</span>
-                    <!-- TODO: Remove this line if no equal contribution -->
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <!--<span class="author-block">Institution Name<br>Conference name and year</span>-->
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small>  <small><sup>1</sup>UC San Diego</small>  <small><sup>2</sup>Carnegie Mellon University</small></span>
                   </div>
 
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
+          
 
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- TODO: Replace with your GitHub repository URL -->
                   <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
+                    <a href="https://github.com/CMU-IntentLab/multisafe" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
-                    <span>Code</span>
+                    <span>Code [coming soon]</span>
                   </a>
                 </span>
 
@@ -302,11 +279,158 @@
                   <span class="icon">
                     <i class="ai ai-arxiv"></i>
                   </span>
-                  <span>arXiv</span>
+                  <span>arXiv [coming soon]</span>
                 </a>
               </span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <!-- TODO: Replace with your paper abstract -->
+            <p>
+              Safe control techniques, such as Hamilton-Jacobi reachability, 
+              provide principled methods for synthesizing safety-preserving 
+              robot policies but typically assume hand-designed state spaces 
+              and full observability. Recent work has relaxed these assumptions
+              via <i>latent-space</i> safe control, where state representations
+              and dynamics are learned jointly through world models that 
+              reconstruct future high-dimensional observations (e.g., RGB images)
+              from current observations and actions. This enables safety 
+              constraints that are difficult to specify analytically 
+              (e.g., spilling) to be framed as classification problems in 
+              latent space, allowing controllers to operate directly from 
+              raw observations. However, these methods assume that 
+              safety-critical features are observable in the learned latent
+              state. We ask: <i>when are latent state spaces sufficient
+              for safe control?</i> To study this, we examine temperature-based
+              failures, comparable to overheating in cooking or manufacturing
+              tasks, and find that RGB-only observations can produce myopic
+              safety behaviors, e.g., avoiding <i>seeing failure</i>
+              states rather than preventing failure itself. To predict 
+              such behaviors, we introduce a mutual information-based 
+              measure that identifies when observations fail to capture 
+              safety-relevant features. Finally, we propose a 
+              multimodal-supervised training strategy that shapes the 
+              latent state with additional sensory inputs during training,
+              but requires no extra modalities at deployment, and validate
+              our approach in simulation and on hardware with a Franka 
+              Research 3 manipulator preventing a pot of wax from 
+              overheating.          
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experimental Testbeds</h2>
+        <div class="content has-text-justified">
+          <p>
+            <div style="text-align: center;">
+              <img src="static/images/mm_envs.png" alt="Description" width="1100">
+            </div>
+            TODO: Add experimental testbeds here
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Mutual Information as a measure of Observability</h2>
+        <div class="content has-text-justified">
+          <p>
+            <div style="text-align: center;">
+              <img src="static/images/MI_metric.png" alt="MI reveals greater separation than accuracy-based metrics for quantifying the observability of safety constraints from high-D obs" width="1100">
+            </div>
+            TODO: Add mutual information description here
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Examining Latent Representation Quality</h2>
+        <div class="content has-text-justified">
+          <div style="text-align: center;">
+            <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
+          </div>
+          <p>
+            TODO
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Simulation Experiments</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO
+
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Hardware Experiments</h2>
+        <div class="content has-text-justified">
+          <p>
+            TODO
+            <h6 class="title is-3">Baselines</h2>
+            <video width="640" height="360" controls>
+              <source src="static/videos/FILL IN VIDEO HERE.mp4" type="video/mp4">
+            </video>
+            <br>
+            <h6 class="title is-3">Multimodal-Supervised Training</h2>
+              TODO: Add hardware experiments here
+            <br>
+            <video width="640" height="360" controls>
+              <source src="static/videos/FILL IN VIDEO HERE.mp4">
+            </video>
+            </p>
         </div>
       </div>
     </div>
@@ -319,154 +443,15 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
+      <video poster="" id="tree" autoplay controls muted loop height="60%" preload="metadata">
         <!-- TODO: Add your video file path here -->
         <source src="static/videos/banner_video.mp4" type="video/mp4">
       </video>
-      <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
     </div>
   </div>
 </section>
 <!-- End teaser video -->
 
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
-
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- TODO: Replace with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <!-- TODO: Replace with your poster PDF -->
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
 
 
 
@@ -481,11 +466,11 @@
         </button>
       </div>
       <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
+  title={What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?},
+  author={Matthew Kim and Kensuke Nakamura and Andrea Bajcsy},
   journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
+  year={2025},
+  url={https://cmu-intentlab.github.io/multisafe/}
 }</code></pre>
     </div>
 </section>
