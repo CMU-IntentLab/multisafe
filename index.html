@@ -300,8 +300,6 @@
           <img src="static/images/mm_envs.png" alt="Environment visualization">
           <figcaption class="caption">
             Experiment Testbeds. In simulation (left) and hardware (right) we control data from two sensors: RGB and infrared (IR) camera. In our controlled experiments, the ground-truth safety-relevant state variable is heat, which is more observable from the IR data than the RGB.
-
-            [NEED TO EXPAND]
           </figcaption>
         </figure>
 
@@ -311,65 +309,111 @@
 </section>
 <!-- End paper environments -->
 
-<!-- Paper Simulation -->
+<!-- [start] mutual information -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 center-title">Simulation Results</h2>
+        <h2 class="title is-3">Mutual Information as a Measure of Observability</h2>
+        <div class="content has-text-justified">
+          <figure class="image is-centered">
+            <img src="static/images/MI_metric.png" alt="MI reveals greater separation than accuracy-based metrics for quantifying the observability of safety constraints from high-D obs" width="1100">
+          </figure>
 
-        <figure class="image is-centered">
-          <!-- Replace with your image path -->
-          <img src="static/images/mm_envs.png" alt="Environment visualization">
-          <figcaption class="caption">
-            Experiment Testbeds. In simulation (left) and hardware (right) we control data from two sensors: RGB and infrared (IR) camera. In our controlled experiments, the ground-truth safety-relevant state variable is heat, which is more observable from the IR data than the RGB.
+          <p>
+          Our mutual information (MI) metric quantifies how much uncertainty about safety outcomes is reduced by observing a particular input modality (e.g., RGB or infrared). We compute a Barber-Agakov lower bound on MI between observations and binary safety labels to measure how well each modality captures safety-relevant features. Higher MI indicates that the modality more reliably encodes features necessary for safety prediction. We find that IR observations exhibit much higher normalized MI than RGB alone, meaning RGB-only models often lack sufficient safety information, which explains their myopic, “avoid seeing failure” behaviors.
+          </p>
 
-          
-          </figcaption>
-        </figure>
-
+        </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End paper simulation -->
+<!-- [end] mutual information -->
 
-<!-- Paper abstract -->
+
+<!-- latent state and imagination test -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Examining Latent Representation Quality</h2>
         <div class="content has-text-justified">
-          <div style="text-align: center;">
+          <figure class="image is-centered">
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
-          </div>
+          </figure>
           <p>
-            TODO
+            We evaluate the quality of the learned latent representations by examining how well they encode safety-relevant state information. Models trained only on RGB observations often produce latent states that fail to represent temperature, leading to visually correct but unsafe predictions. In contrast, our multimodal-supervised approach—trained with both RGB and IR data but deployed with RGB alone—learns latent states that embed the underlying thermal dynamics, enabling proactive interventions that maintain safety.
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End youtube video -->
 
-
-
-<!-- Teaser video-->
-<section class="hero teaser">
+<!-- simulation -->
+<section class="section hero is-light">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="60%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Simulation Experiments</h2>
+
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h3 class="title is-4">RGB-Only Safety Filter</h3>
+            <video width="100%" controls>
+              <source src="static/videos/rgb_demo_dubins.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p class="caption">RGB demo baseline results.</p>
+          </div>
+
+          <div class="column">
+            <h3 class="title is-4">Multimodal Safety Filter</h3>
+            <video width="100%" controls>
+              <source src="static/videos/mm_demo_dubins.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p class="caption">Multimodal demo results.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
-<!-- End teaser video -->
 
+<!-- hardware -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Hardware Experiments</h2>
+
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h3 class="title is-4">RGB-Only Safety Filter</h3>
+            <video width="100%" controls>
+              <source src="static/videos/rgb_demo.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p class="caption">RGB demo baseline results.</p>
+          </div>
+
+          <div class="column">
+            <h3 class="title is-4">Multimodal Safety Filter</h3>
+            <video width="100%" controls>
+              <source src="static/videos/mm_demo.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p class="caption">Multimodal demo results.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
