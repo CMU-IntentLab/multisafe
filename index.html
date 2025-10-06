@@ -295,14 +295,15 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3 center-title">Environments</h2>
 
-        <figure class="image is-centered">
-          <!-- Replace with your image path -->
-          <img src="static/images/mm_envs.png" alt="Environment visualization">
-          <figcaption class="caption">
+        <div class="content has-text-justified">
+          <figure class="image is-centered">
+            <!-- Replace with your image path -->
+            <img src="static/images/mm_envs.png" alt="Environment visualization">
+          </figure>
+          <p>
             Experiment Testbeds. In simulation (left) and hardware (right) we control data from two sensors: RGB and infrared (IR) camera. In our controlled experiments, the ground-truth safety-relevant state variable is heat, which is more observable from the IR data than the RGB.
-          </figcaption>
-        </figure>
-
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -358,14 +359,16 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Simulation Experiments</h2>
 
-        <div class="columns is-vcentered">
+        <div class="columns has-text-justified">
           <div class="column">
             <h3 class="title is-4">RGB-Only Safety Filter</h3>
             <video width="100%" controls>
               <source src="static/videos/rgb_demo_dubins.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <p class="caption">RGB demo baseline results.</p>
+            <p>
+              RGB-only safety filter: The agent avoids visually unsafe states but fails to prevent actual overheating events due to missing thermal cues.
+            </p>
           </div>
 
           <div class="column">
@@ -374,7 +377,9 @@
               <source src="static/videos/mm_demo_dubins.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <p class="caption">Multimodal demo results.</p>
+            <p>
+              Multimodal-supervised safety filter: The agent predicts temperature rise early and moves out of the hot region before failure occurs.
+            </p>
           </div>
         </div>
 
@@ -390,14 +395,16 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Hardware Experiments</h2>
 
-        <div class="columns is-vcentered">
+        <div class="columns has-text-justified">
           <div class="column">
             <h3 class="title is-4">RGB-Only Safety Filter</h3>
             <video width="100%" controls>
               <source src="static/videos/rgb_demo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <p class="caption">RGB demo baseline results.</p>
+            <p>
+              RGB-only safety filter on the Franka Research 3 manipulator fails to provide safe actions, allowing the pot of wax to overheat.
+            </p>
           </div>
 
           <div class="column">
@@ -406,16 +413,36 @@
               <source src="static/videos/mm_demo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <p class="caption">Multimodal demo results.</p>
+            <p>
+              Multimodal safety filter anticipates overheating and lifts the pan early, maintaining safety using only RGB input during execution.
+            </p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </section>
 
+<!-- hardware MM-RGB -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Hardware Experiments</h2>
 
+        <div class="content has-text-justified">
+          <video width="100%" controls>
+            <source src="static/videos/masked_demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>
+            The multimodal-supervised safety filter also anticipates overheating and lifts the pan before the wax fails. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
