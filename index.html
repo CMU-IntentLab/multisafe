@@ -297,7 +297,11 @@
         <div class="content has-text-justified">
           <figure class="image is-centered">
             <img src="static/images/frontfig_mm.png" alt="frontfig" width="2000">
+            <p style="font-size: 0.9rem; margin-top: 0.5em;">
+              We design a series of controlled experiments to test how latent safety filters behave under partially observable constraints. <i>Left</i>: We find that safety filters that rely on RGB inputs behave unreliably when they must enforce constraints, such as temperature limits, that are not easily observable. <i>Right</i>: Training with rich, safety-relevant multimodal supervision shapes the latent state representation to enable safe control (e.g., lifting the pan before overheating), even when the robot is deployed with only RGB inputs at runtime.
+            </p>
           </figure>
+
           <p>
             Latent-space safety filters enable safe control directly from raw sensory data by learning compact state representations and safety boundaries jointly. However, these methods typically assume that all safety-critical information is observable in the sensory input. In many real-world tasks, this assumption breaks down because safety often depends on hidden or indirectly observable variables such as force, friction, or temperature. When these unobserved factors drive unsafe outcomes, controllers trained only on visible cues can appear safe while actually failing to prevent danger.
           </p>
@@ -326,10 +330,10 @@
           </figure>
 
           <p>
-            In simulation (left), we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
+            In simulation (<i>left</i>), we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
           </p>
           <p>
-            On hardware (right), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
+            On hardware (<i>right</i>), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
           </p>
         </div>
       </div>
@@ -461,7 +465,7 @@
 
         <div class="content has-text-justified">
           <p>
-            To validate our findings in the real world, we deploy the same latent safety filters on a 
+            To validate our findings in the real world, we deploy the same RGB-only and multimodal latent safety filters on a 
             <strong>Franka Research 3 manipulator</strong> heating a pot of wax. 
             The safety objective is to prevent overheating by lifting the pot before its temperature exceeds a threshold. 
           </p>
@@ -500,9 +504,12 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Hardware Experiments</h2>
+        <h2 class="title is-3">Multimodal-Supervised RGB Safety Filter</h2>
 
         <div class="content has-text-justified">
+          <p>
+            After demonstrating that multimodal supervision improves safety performance in simulation and hardware, we evaluate a final variant of our approach designed for practical deployment: a <strong>multimodal-supervised RGB safety filter</strong>. 
+          </p>
           <video width="100%" controls>
             <source src="static/videos/masked_demo.mp4" type="video/mp4">
             Your browser does not support the video tag.
