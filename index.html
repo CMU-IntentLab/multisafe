@@ -295,11 +295,14 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">When Latent Safety Filters Miss What Matters</h2>
         <div class="content has-text-justified">
+          <figure class="image is-centered">
+            <img src="static/images/frontfig_mm.png" alt="frontfig" width="2000">
+          </figure>
           <p>
             Latent-space safety filters enable safe control directly from raw sensory data by learning compact state representations and safety boundaries jointly. However, these methods typically assume that all safety-critical information is observable in the sensory input. In many real-world tasks, this assumption breaks down because safety often depends on hidden or indirectly observable variables such as force, friction, or temperature. When these unobserved factors drive unsafe outcomes, controllers trained only on visible cues can appear safe while actually failing to prevent danger.
           </p>
           <p>
-            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable. By examining heating tasks where RGB cameras cannot fully perceive temperature rise, we show how latent safety filters behave when the true risk is invisible, and how multimodal supervision can recover reliable safety behavior.
+            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable. By examining heating tasks where RGB cameras cannot fully perceive temperature rise, we show how latent safety filters behave when the true risk is partially observable, and how multimodal supervision can recover reliable safety behavior.
           </p>
         </div>
       </div>
@@ -315,17 +318,18 @@
         <h2 class="title is-3 center-title">Experiment Testbeds</h2>
 
         <div class="content has-text-justified">
-          <figure class="image is-centered">
-            <img src="static/images/mm_envs.png" alt="Simulation and hardware environments">
-          </figure>
           <p>
             We evaluate latent safety filters in both simulation and hardware environments designed to reveal how partial observability impacts safe behavior.
           </p>
+          <figure class="image is-centered">
+            <img src="static/images/mm_envs.png" alt="Simulation and hardware environments">
+          </figure>
+
           <p>
-            In simulation, we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
+            In simulation (left), we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
           </p>
           <p>
-            On hardware, we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
+            On hardware (right), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
           </p>
         </div>
       </div>
@@ -374,7 +378,7 @@
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            To quantify latent representation quality, we introduce two diagnostic tests. The <em>latent state test</em> measures how much safety-relevant information (e.g., heat) is directly encoded in the learned latent state, while the <em>latent dynamics test</em> evaluates whether the world model's imagined rollouts understand how that information evolves time. Together, these tests reveal whether the learned latent space both contains and maintains the safety features needed for effective control. The multimodal simulation and hardware methods align with our qualitative observations: the latent features degrade when safety-critical features are not directly observable.  
+            To quantify latent representation quality, we introduce two diagnostic tests. The <em>latent state test</em> measures how much safety-relevant information (e.g., heat) is directly encoded in the learned latent state, while the <em>latent dynamics test</em> evaluates whether the world model's imagined rollouts understand how that information evolves time. Together, these tests reveal whether the learned latent space both contains and maintains the safety features needed for effective control. 
           </p>
         </div>
 
@@ -393,6 +397,11 @@
             </figure>
           </div>
         </div>
+        <div class="content has-text-justified">
+          <p>
+            The latent state and latent dynamics test results align with our qualitative observations: the latent features degrade when safety-critical features are not directly observable.  
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -405,6 +414,15 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Simulation Experiments</h2>
 
+        <div class="content has-text-justified">
+          <p>
+            We first evaluate safety filter behavior in the <strong>thermal unicycle</strong> simulation. 
+            The agent must navigate while avoiding overheating caused by proximity to a heat source. 
+            Since we design the RGB input to not observe temperature, this setting highlights how limited observability can lead to misleadingly “safe” visual behavior. 
+            We compare a safety filter trained with only RGB inputs to one trained with multimodal supervision using infrared (IR) data.
+          </p>
+        </div>
+
         <div class="columns has-text-justified">
           <div class="column">
             <h3 class="title is-4">RGB-Only Safety Filter</h3>
@@ -413,7 +431,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              RGB-only safety filter: The agent avoids visually unsafe states but fails to prevent actual overheating events due to missing thermal cues.
+              The agent avoids visually unsafe states but fails to prevent actual overheating.
             </p>
           </div>
 
@@ -424,7 +442,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              Multimodal safety filter: The agent predicts temperature rise early and moves out of the hot region before failure occurs.
+              The agent predicts temperature rise early and moves out of the hot region before failure occurs.
             </p>
           </div>
         </div>
@@ -441,6 +459,14 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Hardware Experiments</h2>
 
+        <div class="content has-text-justified">
+          <p>
+            To validate our findings in the real world, we deploy the same latent safety filters on a 
+            <strong>Franka Research 3 manipulator</strong> heating a pot of wax. 
+            The safety objective is to prevent overheating by lifting the pot before its temperature exceeds a threshold. 
+          </p>
+        </div>
+
         <div class="columns has-text-justified">
           <div class="column">
             <h3 class="title is-4">RGB-Only Safety Filter</h3>
@@ -449,7 +475,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              RGB-only safety filter on the Franka Research 3 manipulator fails to provide safe actions, allowing the pot of wax to overheat.
+              The RGB-only safety filter fails to provide safe actions, causing the pot of wax to overheat.
             </p>
           </div>
 
@@ -460,7 +486,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              Multimodal safety filter anticipates overheating and lifts the pot of wax early, maintaining safety during execution.
+              The multimodal safety filter anticipates overheating and lifts the pot of wax early, maintaining safety.
             </p>
           </div>
         </div>
@@ -482,7 +508,7 @@
             Your browser does not support the video tag.
           </video>
           <p>
-            The multimodal-supervised safety filter also anticipates overheating and lifts the pan before failure. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
+            The multimodal-supervised safety filter anticipates overheating and lifts the pan before failure. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
           </p>
         </div>
       </div>
