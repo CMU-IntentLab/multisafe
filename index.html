@@ -288,6 +288,25 @@
   </section>
   <!-- End paper abstract -->
 
+<!-- Motivation / Problem Setup -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">When Latent Safety Filters Miss What Matters</h2>
+        <div class="content has-text-justified">
+          <p>
+            Latent-space safety filters promise to enable safe control directly from raw sensory data by learning compact state representations and safety boundaries jointly. However, these methods typically assume that all safety-critical information is observable in the sensory input. In many real-world tasks, this assumption breaks down because safety often depends on hidden or indirectly observable variables such as force, friction, or temperature. When these unobserved factors drive unsafe outcomes, controllers trained only on visible cues can appear safe while actually failing to prevent danger.
+          </p>
+          <p>
+            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable. By examining heating tasks where RGB cameras cannot fully perceive temperature rise, we show how latent safety filters behave when the true risk is invisible, and how multimodal supervision can recover reliable safety behavior.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Paper Environments -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
