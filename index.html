@@ -303,10 +303,34 @@
           </figure>
 
           <p>
-            Latent-space safety filters enable safe control directly from raw sensory data by learning compact state representations and safety boundaries jointly. However, these methods typically assume that all safety-critical information is observable in the sensory input. In many real-world tasks, this assumption breaks down because safety often depends on hidden or indirectly observable variables such as force, friction, or temperature. When these unobserved factors drive unsafe outcomes, controllers trained only on visible cues can appear safe while actually failing to prevent danger.
+            Latent-space safety filters enable safe control directly from raw high-dimensional
+            (e.g., RGB images) sensor inputs
+            by training a world model which jointly learns compact state representations 
+            and dynamics via observation-reconstruction. Safety constraints are specified by 
+            training a classifier on the latent state. 
+          </p>
+          <figure class="image is-centered">
+            <img src="static/images/wm_training.png" alt="World Models shape latent states by reconstructing observations">
+          </figure>
+          <p>Once trained, latent safety filters
+            can be computed by solving a latent Hamilton-Jacobi fixed point equation which
+            cooptimizes both a safety monitor and safety-preservering fallback controller.
+          </p>
+          <figure class="image is-centered">
+            <img src="static/images/latent_hj.png" alt="Safety filters can be computing by solving a latent Hamilton-Jacobi fixed point equation">
+          </figure>
+          <p>
+            However, prior works assumed that all safety-critical information is 
+            observable from RGB sensor inputs. This may break down in many real-world tasks,
+            such as cooking or welding, where safety often depends on hidden or indirectly observable 
+            variables like temperature. When these unobserved factors drive unsafe outcomes, controllers 
+            trained on RGB-only data can appear safe while actually failing to prevent danger.
           </p>
           <p>
-            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable. By examining heating tasks where RGB cameras cannot fully perceive temperature rise, we show how latent safety filters behave when the true risk is partially observable, and how multimodal supervision can recover reliable safety behavior.
+            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable.
+            By examining heating tasks where RGB cameras cannot fully perceive temperature changes, 
+            we show how latent safety filters behave when the true risk is partially observable,
+            and how multimodal supervision only at training time can recover reliable safety behavior.
           </p>
         </div>
       </div>
@@ -330,10 +354,11 @@
           </figure>
 
           <p>
-            In simulation (<i>left</i>), we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
+            In simulation (<i>left</i>), we introduce the <strong>thermal unicycle</strong>, a 4-D unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
           </p>
           <p>
-            On hardware (<i>right</i>), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
+            On hardware (<i>right</i>), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. We collect both RGB and infrared (IR) observations during data collection, where the IR modality provides privileged information about temperature that is not observable from RGB images. 
+            This setup allows us to study how the presence (or lack thereof) of safety critical information during training/deployment affects the downstream performance of latent safety filters. 
           </p>
         </div>
       </div>
@@ -351,14 +376,28 @@
         <h2 class="title is-3">Mutual Information as a Measure of Observability</h2>
         <div class="content has-text-justified">
           <p>
-          Our mutual information (MI) metric quantifies how much uncertainty about safety outcomes is reduced by observing a particular input modality (e.g., RGB or infrared). We compute a Barber-Agakov lower bound on MI between observations and binary safety labels to measure how well each modality captures safety-relevant features. Higher MI indicates that the modality more reliably encodes features necessary for safety prediction. 
+          In latent state spaces, traditional notions of observability may not apply. Instead, 
+          we use the notion of mutual information (MI) between high-D sensor observations and 
+          safety outcomes as a way of measuring the observability of safety-relevant quantities.
+          This metric quantifies the degree to which uncertainty over safety outcomes is reduced 
+          by observing a particular input modality (e.g., RGB or infrared). We compute a 
+          Barber-Agakov lower bound on MI between observations and binary safety labels to
+          measure how well each modality captures safety-relevant features. Higher MI indicates
+          that the modality more reliably encodes features necessary for safety prediction. 
           </p>
 
           <figure class="image is-centered">
             <img src="static/images/MI_metric.png" width="1100">
           </figure>
           <p>
-            We find that IR observations exhibit much higher normalized MI than RGB alone, meaning RGB-only models often lack sufficient safety information, which explains their myopic, “avoid seeing failure” behaviors. Furthermore, we find that the MI metrics are more indicative than traditional metrics, such as accuracy and balanced accuracy, when identifying degenerative latent states: our simulation balanced accuracy could potentially indicate a sufficient classifier, even though the RGB channel is designed to provide little to no indication regarding failure. 
+            We report MI normalized by the empirical entropy of the safety labels 
+            (normalized MI between 0 and 1). In both simulation, where RGB is insufficient
+            for identifying failure by design, and hardware, we find that IR observations 
+            exhibit much higher normalized MI than RGB alone, suggesting that RGB data 
+            lacks sufficient safety information in these settings. Furthermore, we find 
+            that the MI metrics are more indicative than traditional classification-based
+            metrics, such as accuracy and balanced accuracy, when identifying degenerative
+            latent states.
           </p>
         </div>
       </div>
@@ -376,13 +415,24 @@
         <h2 class="title is-3">Examining Latent Representation Quality</h2>
         <div class="content has-text-justified">
           <p>
-            We evaluate the quality of the learned latent representations by examining how well they encode safety-relevant state information. Models trained only on RGB observations often produce latent states that fail to represent temperature, leading to visually correct but unsafe predictions. In contrast, our multimodal approach learns latent states that embed the underlying thermal dynamics, enabling proactive interventions that maintain safety. 
+            We evaluate the quality of the learned latent representations by examining 
+            how well they encode safety-relevant state information. Models trained only
+            on RGB observations often produce latent states that fail to represent
+            temperature, leading to visually correct but unsafe predictions. In contrast,
+            our multimodal approach learns latent states that embed the underlying thermal 
+            dynamics, enabling proactive interventions that maintain safety. 
           </p>
           <figure class="image is-centered">
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            To quantify latent representation quality, we introduce two diagnostic tests. The <em>latent state test</em> measures how much safety-relevant information (e.g., heat) is directly encoded in the learned latent state, while the <em>latent dynamics test</em> evaluates whether the world model's imagined rollouts understand how that information evolves time. Together, these tests reveal whether the learned latent space both contains and maintains the safety features needed for effective control. 
+            To quantify latent representation quality, we introduce two diagnostic tests.
+            The <em>latent state test</em> measures how much safety-relevant information 
+            (e.g., heat) is directly encoded in the learned latent state, while the 
+            <em>latent dynamics test</em> evaluates whether the world model's open-loop 
+            predictions understand how safety outcomes evolve over time. Together, these 
+            tests reveal whether the learned latent space both contains and maintains 
+            the safety features needed for effective safe control. 
           </p>
         </div>
 
@@ -403,7 +453,9 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            The latent state and latent dynamics test results align with our qualitative observations: the latent features degrade when safety-critical features are not directly observable.  
+            The latent state and latent dynamics test results align with our previous MI-based 
+            metric: the latent features degrade when safety-critical features are 
+            not directly observable.  
           </p>
         </div>
       </div>
@@ -422,7 +474,6 @@
           <p>
             We first evaluate safety filter behavior in the <strong>thermal unicycle</strong> simulation. 
             The agent must navigate while avoiding overheating caused by proximity to a heat source. 
-            Since we design the RGB input to not observe temperature, this setting highlights how limited observability can lead to misleadingly “safe” visual behavior. 
             We compare a safety filter trained with only RGB inputs to one trained with multimodal supervision using infrared (IR) data.
           </p>
         </div>
@@ -451,6 +502,13 @@
           </div>
         </div>
 
+        <div class="content has-text-justified">
+          <p>
+            Since temperature changes is only visible in the RGB input <i>after</i> leaving the red hot
+            region, we notice myopic behavior the prevents seeing failure rather than preventing failure itself
+            when deploying RGB-only latent safety filters. </p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -465,7 +523,7 @@
 
         <div class="content has-text-justified">
           <p>
-            To validate our findings in the real world, we deploy the same RGB-only and multimodal latent safety filters on a 
+            To validate our findings in the real world, we also deploy RGB-only and multimodal latent safety filters on a 
             <strong>Franka Research 3 manipulator</strong> heating a pot of wax. 
             The safety objective is to prevent overheating by lifting the pot before its temperature exceeds a threshold. 
           </p>
@@ -508,14 +566,22 @@
 
         <div class="content has-text-justified">
           <p>
-            After demonstrating that multimodal supervision improves safety performance in simulation and hardware, we evaluate a final variant of our approach designed for practical deployment: a <strong>multimodal-supervised RGB safety filter</strong>. 
+            While previous results confirm that directly observing safety relevant features 
+            improves safe control, it may not be feasible to deploy robots with a full suite of
+            sensors at scale. We propose a world model training strategy that shapes 
+            the latent representation by reconstructing privileged IR data while only using RGB 
+            data as an input modality. This world model training strategy forces the latent 
+            representation to encode safety relevant quantities and learn to estimate 
+            these quantities from RGB data at runtime.
           </p>
           <video width="100%" controls>
             <source src="static/videos/masked_demo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <p>
-            The multimodal-supervised safety filter anticipates overheating and lifts the pan before failure. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
+            The multimodal-supervised safety filter anticipates overheating and lifts 
+            the pan before failure. Trained with RGB + IR data but deployed using only
+            RGB, the controller maintains safety even under partial observability.
           </p>
         </div>
       </div>
