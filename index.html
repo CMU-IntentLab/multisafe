@@ -586,7 +586,13 @@
           <p>
             While previous results confirm that directly observing safety relevant features 
             improves safe control, it may not be feasible to deploy robots with a full suite of
-            sensors at scale. We propose a world model training strategy that shapes 
+            sensors at scale.
+          </p>
+          <figure class="image is-centered">
+            <img src="static/images/mm_supervised.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
+          </figure>
+          <p>
+            We propose a world model training strategy that shapes 
             the latent representation by reconstructing privileged IR data while only using RGB 
             data as an input modality. This world model training strategy forces the latent 
             representation to encode safety relevant quantities and learn to estimate 
