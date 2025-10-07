@@ -312,15 +312,20 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 center-title">Environments</h2>
+        <h2 class="title is-3 center-title">Experiment Testbeds</h2>
 
         <div class="content has-text-justified">
           <figure class="image is-centered">
-            <!-- Replace with your image path -->
-            <img src="static/images/mm_envs.png" alt="Environment visualization">
+            <img src="static/images/mm_envs.png" alt="Simulation and hardware environments">
           </figure>
           <p>
-            Experiment Testbeds. In simulation (left) and hardware (right) we control data from two sensors: RGB and infrared (IR) camera. In our controlled experiments, the ground-truth safety-relevant state variable is heat, which is more observable from the IR data than the RGB.
+            We evaluate latent safety filters in both simulation and hardware environments designed to reveal how partial observability impacts safe behavior.
+          </p>
+          <p>
+            In simulation, we introduce the <strong>thermal unicycle</strong>, a Dubins-style unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
+          </p>
+          <p>
+            On hardware, we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. During training, the robot observes both RGB and IR data, where the IR modality provides a privileged view of heat, the true safety variable. At test time, only RGB observations are used, enabling us to evaluate how well latent representations trained under different modalities encode or omit safety-critical information in the real world.
           </p>
         </div>
       </div>
@@ -329,6 +334,7 @@
 </section>
 <!-- End paper environments -->
 
+
 <!-- [start] mutual information -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
@@ -336,14 +342,16 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Mutual Information as a Measure of Observability</h2>
         <div class="content has-text-justified">
-          <figure class="image is-centered">
-            <img src="static/images/MI_metric.png" alt="MI reveals greater separation than accuracy-based metrics for quantifying the observability of safety constraints from high-D obs" width="1100">
-          </figure>
-
           <p>
-          Our mutual information (MI) metric quantifies how much uncertainty about safety outcomes is reduced by observing a particular input modality (e.g., RGB or infrared). We compute a Barber-Agakov lower bound on MI between observations and binary safety labels to measure how well each modality captures safety-relevant features. Higher MI indicates that the modality more reliably encodes features necessary for safety prediction. We find that IR observations exhibit much higher normalized MI than RGB alone, meaning RGB-only models often lack sufficient safety information, which explains their myopic, “avoid seeing failure” behaviors.
+          Our mutual information (MI) metric quantifies how much uncertainty about safety outcomes is reduced by observing a particular input modality (e.g., RGB or infrared). We compute a Barber-Agakov lower bound on MI between observations and binary safety labels to measure how well each modality captures safety-relevant features. Higher MI indicates that the modality more reliably encodes features necessary for safety prediction. 
           </p>
 
+          <figure class="image is-centered">
+            <img src="static/images/MI_metric.png" width="1100">
+          </figure>
+          <p>
+            We find that IR observations exhibit much higher normalized MI than RGB alone, meaning RGB-only models often lack sufficient safety information, which explains their myopic, “avoid seeing failure” behaviors. Furthermore, we find that the MI metrics are more indicative than traditional metrics, such as accuracy and balanced accuracy, when identifying degenerative latent states: our simulation balanced accuracy could potentially indicate a sufficient classifier, even though the RGB channel is designed to provide little to no indication regarding failure. 
+          </p>
         </div>
       </div>
     </div>
@@ -359,12 +367,31 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Examining Latent Representation Quality</h2>
         <div class="content has-text-justified">
+          <p>
+            We evaluate the quality of the learned latent representations by examining how well they encode safety-relevant state information. Models trained only on RGB observations often produce latent states that fail to represent temperature, leading to visually correct but unsafe predictions. In contrast, our multimodal approach learns latent states that embed the underlying thermal dynamics, enabling proactive interventions that maintain safety. 
+          </p>
           <figure class="image is-centered">
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            We evaluate the quality of the learned latent representations by examining how well they encode safety-relevant state information. Models trained only on RGB observations often produce latent states that fail to represent temperature, leading to visually correct but unsafe predictions. In contrast, our multimodal-supervised approach—trained with both RGB and IR data but deployed with RGB alone—learns latent states that embed the underlying thermal dynamics, enabling proactive interventions that maintain safety.
+            To quantify latent representation quality, we introduce two diagnostic tests. The <em>latent state test</em> measures how much safety-relevant information (e.g., heat) is directly encoded in the learned latent state, while the <em>latent dynamics test</em> evaluates whether the world model's imagined rollouts understand how that information evolves time. Together, these tests reveal whether the learned latent space both contains and maintains the safety features needed for effective control. The multimodal simulation and hardware methods align with our qualitative observations: the latent features degrade when safety-critical features are not directly observable.  
           </p>
+        </div>
+
+        <div class="columns has-text-justified">
+          <div class="column">
+            <h3 class="title is-5">Latent State Test</h3>
+            <figure class="image is-centered">
+              <img src="static/images/latent_state_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
+            </figure>
+          </div>
+
+          <div class="column">
+            <h3 class="title is-5">Latent Dynamics Test</h3>
+            <figure class="image is-centered">
+              <img src="static/images/latent_dynamics_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
+            </figure>
+          </div>
         </div>
       </div>
     </div>
@@ -433,7 +460,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              Multimodal safety filter anticipates overheating and lifts the pot of wax early, maintaining safety using only RGB input during execution.
+              Multimodal safety filter anticipates overheating and lifts the pot of wax early, maintaining safety during execution.
             </p>
           </div>
         </div>
@@ -455,7 +482,7 @@
             Your browser does not support the video tag.
           </video>
           <p>
-            The multimodal-supervised safety filter also anticipates overheating and lifts the pan before the wax fails. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
+            The multimodal-supervised safety filter also anticipates overheating and lifts the pan before failure. Trained with RGB + IR data but deployed using only RGB, the controller maintains safety even under partial observability.
           </p>
         </div>
       </div>
