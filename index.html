@@ -5,59 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
   <meta name="title" content="What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="Safe control techniques, such as Hamilton-Jacobi reachability, provide principled methods for synthesizing safety-preserving robot policies but typically assume hand-designed state spaces and full observability. Recent work has relaxed these assumptions via latent-space safe control, where state representations and dynamics are learned jointly through world models that reconstruct future high-dimensional observations (e.g., RGB images) from current observations and actions. This enables safety constraints that are difficult to specify analytically (e.g., spilling) to be framed as classification problems in latent space, allowing controllers to operate directly from raw observations. However, these methods assume that safety-critical features are observable in the learned latent state. We ask: when are latent state spaces sufficient for safe control? To study this, we examine temperature-based failures, comparable to overheating in cooking or manufacturing tasks, and find that RGB-only observations can produce myopic safety behaviors, e.g., avoiding seeing failure states rather than preventing failure itself. To predict such behaviors, we introduce a mutual information-based measure that identifies when observations fail to capture safety-relevant features. Finally, we propose a multimodal-supervised training strategy that shapes the latent state with additional sensory inputs during training, but requires no extra modalities at deployment, and validate our approach in simulation and on hardware with a Franka Research 3 manipulator preventing a pot of wax from overheating.">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="description" content="We study when latent world models contain enough safety-relevant information for robot control under partial observability. Across wax melting and rice pouring hardware tasks, we identify estimation and prediction gaps, diagnose them with safety observability and rollout predictability metrics, and mitigate them with privileged multimodal supervision and conformal risk calibration.">
   <meta name="keywords" content="latent-space safe control, partially observable safety constraints, mutual information, multimodal machine learning, robotics">
-  <!-- TODO: List all authors -->
   <meta name="author" content="Matthew Kim, Kensuke Nakamura, Andrea Bajcsy">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
   <meta property="og:site_name" content="Intent Robotics Lab">
-  <!-- TODO: Same as paper title above -->
   <meta property="og:title" content="What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="Safe control techniques, such as Hamilton-Jacobi reachability, provide principled methods for synthesizing safety-preserving robot policies but typically assume hand-designed state spaces and full observability. Recent work has relaxed these assumptions via latent-space safe control, where state representations and dynamics are learned jointly through world models that reconstruct future high-dimensional observations (e.g., RGB images) from current observations and actions. This enables safety constraints that are difficult to specify analytically (e.g., spilling) to be framed as classification problems in latent space, allowing controllers to operate directly from raw observations. However, these methods assume that safety-critical features are observable in the learned latent state. We ask: when are latent state spaces sufficient for safe control? To study this, we examine temperature-based failures, comparable to overheating in cooking or manufacturing tasks, and find that RGB-only observations can produce myopic safety behaviors, e.g., avoiding seeing failure states rather than preventing failure itself. To predict such behaviors, we introduce a mutual information-based measure that identifies when observations fail to capture safety-relevant features. Finally, we propose a multimodal-supervised training strategy that shapes the latent state with additional sensory inputs during training, but requires no extra modalities at deployment, and validate our approach in simulation and on hardware with a Franka Research 3 manipulator preventing a pot of wax from overheating.">
-  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:description" content="We study when latent world models contain enough safety-relevant information for robot control under partial observability. Across wax melting and rice pouring hardware tasks, we identify estimation and prediction gaps, diagnose them with safety observability and rollout predictability metrics, and mitigate them with privileged multimodal supervision and conformal risk calibration.">
   <meta property="og:url" content="https://cmu-intentlab.github.io/multisafe/">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
   <meta property="og:image" content="static/images/unicycletoast.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
+  <meta property="og:image:alt" content="MultiSafe research preview">
   <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
-  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:author" content="Matthew Kim">
   <meta property="article:section" content="Research">
-  <meta property="article:tag" content="KEYWORD1">
-  <meta property="article:tag" content="KEYWORD2">
+  <meta property="article:tag" content="latent safe control">
+  <meta property="article:tag" content="world models">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:site" content="@CMU_IntentLab">
   <meta name="twitter:title" content="What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
+  <meta name="twitter:description" content="We study estimation and prediction gaps in latent safe control under partial observability, and mitigate them with multimodal supervision and conformal calibration.">
+  <meta name="twitter:image" content="https://cmu-intentlab.github.io/multisafe/static/images/unicycletoast.png">
+  <meta name="twitter:image:alt" content="MultiSafe research preview">
 
   <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="PAPER_TITLE">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  <meta name="citation_title" content="What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?">
+  <meta name="citation_author" content="Kim, Matthew">
+  <meta name="citation_author" content="Nakamura, Kensuke">
+  <meta name="citation_author" content="Bajcsy, Andrea">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="Conference on Robot Learning">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2510.06492">
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -73,7 +59,6 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
 
-  <!-- TODO: Replace with your paper title and authors -->
   <title>What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?</title>
   
   <!-- Favicon and App Icons -->
@@ -114,50 +99,58 @@
   {
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
-    "headline": "PAPER_TITLE",
-    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
+	    "headline": "What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?",
+	    "description": "We study estimation and prediction gaps in latent safe control under partial observability, and mitigate them with multimodal supervision and conformal calibration.",
     "author": [
       {
         "@type": "Person",
-        "name": "FIRST_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "SECOND_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      }
-    ],
-    "datePublished": "2024-01-01",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CONFERENCE_OR_JOURNAL_NAME"
-    },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
-    "citation": "BIBTEX_CITATION_HERE",
+	        "name": "Matthew Kim",
+	        "affiliation": {
+	          "@type": "Organization",
+	          "name": "UC San Diego"
+	        }
+	      },
+	      {
+	        "@type": "Person",
+	        "name": "Kensuke Nakamura",
+	        "affiliation": {
+	          "@type": "Organization",
+	          "name": "Carnegie Mellon University"
+	        }
+	      },
+	      {
+	        "@type": "Person",
+	        "name": "Andrea Bajcsy",
+	        "affiliation": {
+	          "@type": "Organization",
+	          "name": "Carnegie Mellon University"
+	        }
+	      }
+	    ],
+	    "datePublished": "2025-01-01",
+	    "publisher": {
+	      "@type": "Organization",
+	      "name": "Conference on Robot Learning"
+	    },
+	    "url": "https://cmu-intentlab.github.io/multisafe/",
+	    "image": "https://cmu-intentlab.github.io/multisafe/static/images/unicycletoast.png",
+	    "keywords": ["latent safe control", "world models", "partial observability", "multimodal learning", "robotics"],
+	    "abstract": "We study latent safe control under partial observability and identify estimation gaps and prediction gaps in learned world model representations. Across wax melting and rice pouring hardware tasks, we diagnose these gaps with safety observability and rollout predictability metrics, then mitigate them with privileged multimodal supervision and conformal risk calibration.",
+	    "citation": "@misc{kim2025dontknowhurtyou, title={What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?}, author={Matthew Kim and Kensuke Nakamura and Andrea Bajcsy}, year={2025}, eprint={2510.06492}, archivePrefix={arXiv}, primaryClass={cs.RO}, url={https://arxiv.org/abs/2510.06492}}",
     "isAccessibleForFree": true,
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "mainEntity": {
       "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+	      "@id": "https://cmu-intentlab.github.io/multisafe/"
     },
     "about": [
       {
         "@type": "Thing",
-        "name": "RESEARCH_AREA_1"
+	        "name": "Robot safety"
       },
       {
         "@type": "Thing", 
-        "name": "RESEARCH_AREA_2"
+	        "name": "World models"
       }
     ]
   }
@@ -168,13 +161,12 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "INSTITUTION_OR_LAB_NAME",
-    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
-    "sameAs": [
-      "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
-    ]
+	    "name": "Intent Robotics Lab",
+	    "url": "https://intent.cs.cmu.edu/",
+	    "logo": "https://cmu-intentlab.github.io/multisafe/static/images/favicon.ico",
+	    "sameAs": [
+	      "https://github.com/CMU-IntentLab"
+	    ]
   }
   </script>
 </head>
@@ -193,11 +185,9 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
             <h1 class="title is-2 publication-title">What You Don't Know <i>Can</i> Hurt You: <br> How Well do Latent Safety
               Filters Understand Partially Observable Safety Constraints?</h1>
             <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
                 <a href="https://www.linkedin.com/in/mattkiim/" target="_blank">Matthew Kim</a><sup>*1</sup>,</span>
                 <span class="author-block">
@@ -229,7 +219,6 @@
                   </a>
                 </span>
 
-                <!-- TODO: Update with your arXiv paper ID -->
                 <span class="link-block">
                   <a href="https://arxiv.org/abs/2510.06492" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
@@ -247,7 +236,7 @@
   </div>
 </section>
 
-<!-- simulation -->
+<!-- overview video -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -272,36 +261,16 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
-            <!-- TODO: Replace with your paper abstract -->
             <p>
-              Safe control techniques, such as Hamilton-Jacobi reachability, 
-              provide principled methods for synthesizing safety-preserving 
-              robot policies but typically assume hand-designed state spaces 
-              and full observability. Recent work has relaxed these assumptions
-              via <i>latent-space</i> safe control, where state representations
-              and dynamics are learned jointly through world models that 
-              reconstruct future high-dimensional observations (e.g., RGB images)
-              from current observations and actions. This enables safety 
-              constraints that are difficult to specify analytically 
-              (e.g., spilling) to be framed as classification problems in 
-              latent space, allowing controllers to operate directly from 
-              raw observations. However, these methods assume that 
-              safety-critical features are observable in the learned latent
-              state. We ask: <i>when are latent state spaces sufficient
-              for safe control?</i> To study this, we examine temperature-based
-              failures, comparable to overheating in cooking or manufacturing
-              tasks, and find that RGB-only observations can produce myopic
-              safety behaviors, e.g., avoiding <i>seeing failure</i>
-              states rather than preventing failure itself. To predict 
-              such behaviors, we introduce a mutual information-based 
-              measure that identifies when observations fail to capture 
-              safety-relevant features. Finally, we propose a 
-              multimodal-supervised training strategy that shapes the 
-              latent state with additional sensory inputs during training,
-              but requires no extra modalities at deployment, and validate
-              our approach in simulation and on hardware with a Franka 
-              Research 3 manipulator preventing a pot of wax from 
-              overheating.          
+              Latent world models are becoming a powerful tool for robot control, policy evaluation, and planning because they learn compact state representations and dynamics directly from high-dimensional observations.
+              In this work, we study latent safe control: using world models to safeguard robots against hard-to-model constraints such as overheating or spilling.
+              We ask when a learned latent state contains the safety-relevant quantities needed for control, and what can be done when those quantities are only partially observable.
+              We identify two failure modes: <i>estimation gaps</i>, where the latent state cannot infer whether the system is currently safe, and <i>prediction gaps</i>, where violations are recognizable once they occur but cannot be reliably anticipated from available observations.
+              We study these gaps on two Franka Research 3 hardware tasks: wax melting, where the robot must avoid overheating a plate of wax, and rice pouring, where the robot must manipulate an opaque bottle without spilling its contents.
+              To diagnose the gaps, we use a mutual-information-based measure of safety observability and a rollout-based measure of future safety predictability.
+              To mitigate them, we use privileged multimodal supervision for estimation gaps and conformal risk calibration for prediction gaps.
+              Our results show that multimodal RGB+Thermal or RGB+Tactile information improves safety under partial observability, while RGB-only controllers can become overly conservative or learn poor fallback behavior.
+              More broadly, our work raises the question of when world model state representations are sufficient for reliable robot control.
             </p>
           </div>
         </div>
@@ -315,44 +284,39 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">When Latent Safety Filters Miss What Matters</h2>
+        <h2 class="title is-3">When Latent World Models Miss What Matters</h2>
         <div class="content has-text-justified">
           <figure class="image is-centered">
             <img src="static/images/frontfig_mm.png" alt="frontfig" width="2000">
             <p style="font-size: 0.9rem; margin-top: 0.5em;">
-              We design a series of controlled experiments to test how latent safety filters behave under partially observable constraints. <i>Left</i>: We find that safety filters that rely on RGB inputs behave unreliably when they must enforce constraints, such as temperature limits, that are not easily observable. <i>Right</i>: Training with rich, safety-relevant multimodal supervision shapes the latent state representation to enable safe control (e.g., lifting the pan before overheating), even when the robot is deployed with only RGB inputs at runtime.
+              We study latent safe control under partial observability. Safety filters that rely on RGB-only world models can fail when the task depends on hidden quantities, such as temperature or whether an opaque container is filled. Multimodal training signals provide safety-relevant information that can shape the latent state and improve downstream control.
             </p>
           </figure>
 
           <p>
-            Latent-space safety filters enable safe control directly from raw high-dimensional
-            (e.g., RGB images) sensor inputs
-            by training a world model which jointly learns compact state representations 
-            and dynamics via observation-reconstruction. Safety constraints are specified by 
-            training a classifier on the latent state. 
+            Latent world models learn compact state representations and dynamics directly from
+            high-dimensional observations such as RGB images. Additional modules, including
+            safety classifiers and planning or control policies, can then use these latent
+            states to evaluate actions and intervene before a constraint is violated.
           </p>
           <figure class="image is-centered">
             <img src="static/images/wm_training.png" alt="World Models shape latent states by reconstructing observations">
-          </figure>
-          <p>Once trained, latent safety filters
-            can be computed by solving a latent Hamilton-Jacobi fixed point equation which
-            cooptimizes both a safety monitor and safety-preservering fallback controller.
-          </p>
-          <figure class="image is-centered">
-            <img src="static/images/latent_hj.png" alt="Safety filters can be computing by solving a latent Hamilton-Jacobi fixed point equation">
+            <figcaption style="color: red; font-size: 0.9rem; margin-top: 0.5rem;">
+              replace
+            </figcaption>
           </figure>
           <p>
-            However, prior works assumed that all safety-critical information is 
-            observable from RGB sensor inputs. This may break down in many real-world tasks,
-            such as cooking or welding, where safety often depends on hidden or indirectly observable 
-            variables like temperature. When these unobserved factors drive unsafe outcomes, controllers 
-            trained on RGB-only data can appear safe while actually failing to prevent danger.
+            However, the controller can only be as reliable as the latent representation it receives.
+            In a wax melting task, an RGB image may not reveal whether the wax is close to overheating.
+            In a rice pouring task, an opaque bottle can look the same whether it is full or empty,
+            even though the safe action depends on that hidden fill state.
           </p>
           <p>
-            To study this challenge concretely, we focus on temperature as a representative partially observable safety variable.
-            By examining heating tasks where RGB cameras cannot fully perceive temperature changes, 
-            we show how latent safety filters behave when the true risk is partially observable,
-            and how multimodal supervision only at training time can recover reliable safety behavior.
+            We call these failures <i>estimation gaps</i> when the latent state cannot infer the
+            current safety condition, and <i>prediction gaps</i> when failures are observable after
+            they happen but cannot be reliably predicted before an unsafe outcome. Our experiments
+            diagnose both gaps and test mitigation strategies that make latent safe control more
+            reliable under partial observability.
           </p>
         </div>
       </div>
@@ -365,22 +329,32 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 center-title">Experiment Testbeds</h2>
+        <h2 class="title is-3 center-title">Hardware Testbeds</h2>
 
         <div class="content has-text-justified">
           <p>
-            We evaluate latent safety filters in both simulation and hardware environments designed to reveal how partial observability impacts safe behavior.
+            We evaluate latent safety filters on two hardware environments designed to reveal how
+            partial observability impacts safe behavior.
           </p>
           <figure class="image is-centered">
-            <img src="static/images/mm_envs.png" alt="Simulation and hardware environments">
+	            <img src="static/images/mm_envs.png" alt="Hardware environments for studying partially observable safety constraints">
+
+            <figcaption style="color: red; font-size: 0.9rem; margin-top: 0.5rem;">
+              replace
+            </figcaption>
           </figure>
 
           <p>
-            In simulation (<i>left</i>), we introduce the <strong>thermal unicycle</strong>, a 4-D unicycle model augmented with a latent heat variable that increases as the agent approaches a heat source. The agent receives either RGB or infrared (IR) images and must prevent overheating. This setup is intentionally simple and controllable, allowing us to isolate how safety filters behave when safety-relevant features are only partially observable. 
+            In <strong>wax melting</strong>, the robot must warm a plate of wax without overheating it.
+            RGB images show the scene geometry, but thermal observations provide privileged
+            information about temperature that is difficult to infer visually.
           </p>
           <p>
-            On hardware (<i>right</i>), we use a <strong>Franka Research 3 manipulator</strong> heating a pot of wax. We collect both RGB and infrared (IR) observations during data collection, where the IR modality provides privileged information about temperature that is not observable from RGB images. 
-            This setup allows us to study how the presence (or lack thereof) of safety critical information during training/deployment affects the downstream performance of latent safety filters. 
+            In <strong>rice pouring</strong>, the robot must pick up and move an opaque bottle without
+            spilling its contents. Whether tilting is safe depends on a hidden fill state: tilting an
+            empty bottle is safe, while tilting a filled bottle can spill. We collect RGB observations
+            together with auxiliary modalities such as thermal images or tactile readings to study how
+            world models degrade as safety-relevant information becomes less observable.
           </p>
         </div>
       </div>
@@ -395,31 +369,24 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Mutual Information as a Measure of Observability</h2>
+        <h2 class="title is-3">Diagnosing Estimation Gaps with Safety Observability</h2>
         <div class="content has-text-justified">
           <p>
-          In latent state spaces, traditional notions of observability may not apply. Instead, 
-          we use the notion of mutual information (MI) between high-D sensor observations and 
-          safety outcomes as a way of measuring the observability of safety-relevant quantities.
-          This metric quantifies the degree to which uncertainty over safety outcomes is reduced 
-          by observing a particular input modality (e.g., RGB or infrared). We compute a 
-          Barber-Agakov lower bound on MI between observations and binary safety labels to
-          measure how well each modality captures safety-relevant features. Higher MI indicates
-          that the modality more reliably encodes features necessary for safety prediction. 
+	          Estimation gaps arise when the current observation does not reveal the safety-critical
+            quantity needed to decide whether the system is safe. To quantify this, we approximate
+            the mutual information (MI) between observations and safety labels, which measures how
+            much uncertainty about safety is reduced by observing a particular modality.
           </p>
 
           <figure class="image is-centered">
             <img src="static/images/MI_metric.png" width="1100">
           </figure>
           <p>
-            We report MI normalized by the empirical entropy of the safety labels 
-            (normalized MI between 0 and 1). In both simulation, where RGB is insufficient
-            for identifying failure by design, and hardware, we find that IR observations 
-            exhibit much higher normalized MI than RGB alone, suggesting that RGB data 
-            lacks sufficient safety information in these settings. Furthermore, we find 
-            that the MI metrics are more indicative than traditional classification-based
-            metrics, such as accuracy and balanced accuracy, when identifying degenerative
-            latent states.
+	            We report MI normalized by the empirical entropy of the safety labels. In the wax
+              task, RGB contains far less safety-relevant information than thermal observations,
+              indicating that an RGB-only latent state may not know whether the wax is near an
+              unsafe temperature. This diagnostic tells us when the problem is not merely poor
+              controller tuning, but missing information in the representation itself.
           </p>
         </div>
       </div>
@@ -434,40 +401,37 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Examining Latent Representation Quality</h2>
+        <h2 class="title is-3">Diagnosing Prediction Gaps with Rollouts</h2>
         <div class="content has-text-justified">
           <p>
-            We evaluate the quality of the learned latent representations by examining 
-            how well they encode safety-relevant state information. Models trained only
-            on RGB observations often produce latent states that fail to represent
-            temperature, leading to visually correct but unsafe predictions. In contrast,
-            our multimodal approach learns latent states that embed the underlying thermal 
-            dynamics, enabling proactive interventions that maintain safety. 
+            Prediction gaps occur when a world model can recognize a safety violation after it
+            happens, but cannot reliably imagine whether a candidate action will lead to that
+            violation. In rice pouring, for example, a spill may be visible once rice leaves the
+            bottle, but predicting whether a tilt will spill requires knowing whether the opaque
+            bottle is filled.
           </p>
           <figure class="image is-centered">
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            To quantify latent representation quality, we introduce two diagnostic tests.
-            The <em>latent state test</em> measures how much safety-relevant information 
-            (e.g., heat) is directly encoded in the learned latent state, while the 
-            <em>latent dynamics test</em> evaluates whether the world model's open-loop 
-            predictions understand how safety outcomes evolve over time. Together, these 
-            tests reveal whether the learned latent space both contains and maintains 
-            the safety features needed for effective safe control. 
+            We evaluate prediction gaps by rolling a world model forward open-loop and measuring
+            how accurately it predicts future failures. RGB-only models can imagine incorrect
+            safety outcomes because they lack hidden state information. Multimodal models, such
+            as RGB+Tactile or RGB+Thermal variants, better preserve the information needed to
+            distinguish unsafe motions from safe ones.
           </p>
         </div>
 
         <div class="columns has-text-justified">
           <div class="column">
-            <h3 class="title is-5">Latent State Test</h3>
+            <h3 class="title is-5">Current Safety Estimation</h3>
             <figure class="image is-centered">
               <img src="static/images/latent_state_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
             </figure>
           </div>
 
           <div class="column">
-            <h3 class="title is-5">Latent Dynamics Test</h3>
+            <h3 class="title is-5">Future Safety Prediction</h3>
             <figure class="image is-centered">
               <img src="static/images/latent_dynamics_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
             </figure>
@@ -475,9 +439,9 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            The latent state and latent dynamics test results align with our previous MI-based 
-            metric: the latent features degrade when safety-critical features are 
-            not directly observable.  
+            These diagnostics separate two ways a latent world model can fail: it may not encode
+            the current safety condition, or it may encode enough to classify the present while
+            still failing to predict future unsafe outcomes.
           </p>
         </div>
       </div>
@@ -485,50 +449,47 @@
   </div>
 </section>
 
-<!-- simulation -->
+<!-- prediction gaps -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Simulation Experiments</h2>
+        <h2 class="title is-3">Prediction Gaps in Rice Pouring</h2>
 
         <div class="content has-text-justified">
           <p>
-            We first evaluate safety filter behavior in the <strong>thermal unicycle</strong> simulation. 
-            The agent must navigate while avoiding overheating caused by proximity to a heat source. 
-            We compare a safety filter trained with only RGB inputs to one trained with multimodal supervision using infrared (IR) data.
+            In the rice pouring task, the robot is asked to move an opaque bottle without spilling
+            its contents. A spill is easy to recognize once it happens, but predicting whether a
+            candidate motion will spill depends on a hidden quantity: whether the bottle is filled.
           </p>
         </div>
 
         <div class="columns has-text-justified">
           <div class="column">
-            <h3 class="title is-4">RGB-Only Safety Filter</h3>
-            <video width="100%" controls>
-              <source src="static/videos/rgb_demo_dubins.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+            <h3 class="title is-4">RGB-Only World Model</h3>
             <p>
-              The agent avoids visually unsafe states but fails to prevent actual overheating.
+              RGB-only rollouts can assign the wrong safety outcome to a motion because the bottle's
+              fill state is not visible. This can make the controller overly conservative when the
+              bottle is empty, preventing tilting motions that are actually safe.
             </p>
           </div>
 
           <div class="column">
-            <h3 class="title is-4">Multimodal Safety Filter</h3>
-            <video width="100%" controls>
-              <source src="static/videos/mm_demo_dubins.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+            <h3 class="title is-4">Multimodal World Model</h3>
             <p>
-              The agent predicts temperature rise early and moves out of the hot region before failure occurs.
+              Adding tactile information helps the latent state distinguish filled from empty bottles,
+              improving the model's ability to predict which future motions will cause a spill.
             </p>
           </div>
         </div>
 
         <div class="content has-text-justified">
           <p>
-            Since temperature changes is only visible in the RGB input <i>after</i> leaving the red hot
-            region, we notice myopic behavior the prevents seeing failure rather than preventing failure itself
-            when deploying RGB-only latent safety filters. </p>
+            We mitigate these prediction gaps at the controller level using conformal risk
+            calibration. The calibrated intervention threshold controls the false-safe rate, allowing
+            the safety filter to consistently prevent violations while revealing the cost of partial
+            observability: RGB-only models become much more conservative than multimodal models.
+          </p>
         </div>
 
       </div>
@@ -541,13 +502,14 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Hardware Experiments</h2>
+        <h2 class="title is-3">Wax Melting: Estimation Gaps on Hardware</h2>
 
         <div class="content has-text-justified">
           <p>
-            To validate our findings in the real world, we also deploy RGB-only and multimodal latent safety filters on a 
-            <strong>Franka Research 3 manipulator</strong> heating a pot of wax. 
-            The safety objective is to prevent overheating by lifting the pot before its temperature exceeds a threshold. 
+            In the wax melting task, a <strong>Franka Research 3 manipulator</strong> must warm a
+            plate of wax without overheating it. The safety controller intervenes when the world
+            model predicts unsafe behavior, but an RGB-only latent state may not encode the hidden
+            temperature needed to make that prediction.
           </p>
         </div>
 
@@ -559,7 +521,8 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              The RGB-only safety filter fails to provide safe actions, causing the pot of wax to overheat.
+              The RGB-only safety filter learns a poor fallback policy and fails to prevent the wax
+              from overheating.
             </p>
           </div>
 
@@ -570,7 +533,8 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              The multimodal safety filter anticipates overheating and lifts the pot of wax early, maintaining safety.
+              The multimodal safety filter uses thermal information during learning, anticipates
+              overheating, and lifts the plate early enough to maintain safety.
             </p>
           </div>
         </div>
@@ -584,32 +548,30 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Multimodal-Supervised RGB Safety Filter</h2>
+        <h2 class="title is-3">Mitigating Estimation Gaps with Privileged Supervision</h2>
 
         <div class="content has-text-justified">
           <p>
-            While previous results confirm that directly observing safety relevant features 
-            improves safe control, it may not be feasible to deploy robots with a full suite of
-            sensors at scale.
+            Directly observing safety-relevant quantities improves safe control, but it may not be
+            feasible to deploy robots with a full suite of sensors at scale.
           </p>
           <figure class="image is-centered">
             <img src="static/images/mm_supervised.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            We propose a world model training strategy that shapes 
-            the latent representation by reconstructing privileged IR data while only using RGB 
-            data as an input modality. This world model training strategy forces the latent 
-            representation to encode safety relevant quantities and learn to estimate 
-            these quantities from RGB data at runtime.
+            To mitigate estimation gaps, we use privileged multimodal supervision. During training,
+            the world model receives RGB observations and is also forced to predict privileged
+            thermal observations. At deployment, the controller still uses only RGB, but the latent
+            representation has been shaped to encode hidden safety information that matters for the
+            wax temperature constraint.
           </p>
           <video width="100%" controls>
             <source src="static/videos/masked_demo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <p>
-            The multimodal-supervised safety filter anticipates overheating and lifts 
-            the pan before failure. Trained with RGB + IR data but deployed using only
-            RGB, the controller maintains safety even under partial observability.
+            This allows us to learn an RGB-only controller that safely prevents overheating in all
+            20 hardware trials, while still operating from RGB observations at runtime.
           </p>
         </div>
       </div>
