@@ -237,7 +237,7 @@
 </section>
 
 <!-- overview video -->
-<section class="section hero is-light">
+<!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -250,7 +250,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 
@@ -348,9 +348,7 @@
           <p>
             In <strong>rice pouring</strong>, the robot must pick up and move an opaque bottle without
             spilling its contents. Whether tilting is safe depends on a hidden fill state: tilting an
-            empty bottle is safe, while tilting a filled bottle can spill. We collect RGB observations
-            together with auxiliary modalities such as thermal images or tactile readings to study how
-            world models degrade as safety-relevant information becomes less observable.
+            empty bottle is safe, while tilting a filled bottle can spill. 
           </p>
           <p>
             To enforce these constraints, we deploy latent-space safety controllers that intervene
@@ -385,8 +383,7 @@
 	            We report MI normalized by the empirical entropy of the safety labels. In the wax
               task, RGB contains far less safety-relevant information than thermal observations,
               indicating that an RGB-only latent state may not know whether the wax is near an
-              unsafe temperature. This diagnostic tells us when the problem is not merely poor
-              controller tuning, but missing information in the representation itself.
+              unsafe temperature.
           </p>
         </div>
       </div>
@@ -457,7 +454,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              The RGB-only safety filter learns a poor fallback policy and fails to prevent the wax
+              The RGB-only safety filter fails to prevent the wax
               from overheating.
             </p>
           </div>
@@ -469,8 +466,7 @@
               Your browser does not support the video tag.
             </video>
             <p>
-              The multimodal safety filter uses thermal information during learning, anticipates
-              overheating, and lifts the plate early enough to maintain safety.
+              The multimodal safety filter lifts the plate early to avoid overheating.
             </p>
           </div>
         </div>
@@ -484,7 +480,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Mitigating Estimation Gaps with Privileged Supervision</h2>
+        <h2 class="title is-3">Mitigating Estimation Gaps: Privileged Supervision</h2>
 
         <div class="content has-text-justified">
           <p>
@@ -520,7 +516,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Mitigating Prediction Gaps with Conformal Calibration</h2>
+        <h2 class="title is-3">Mitigating Prediction Gaps: Conformal Calibration</h2>
 
         <div class="content has-text-justified">
           <p>
