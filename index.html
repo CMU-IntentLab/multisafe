@@ -286,12 +286,12 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">When Latent World Models Miss What Matters</h2>
         <div class="content has-text-justified">
-          <figure class="image is-centered">
+          <!-- <figure class="image is-centered">
             <img src="static/images/frontfig_mm.png" alt="frontfig" width="2000">
             <p style="font-size: 0.9rem; margin-top: 0.5em;">
               We study latent safe control under partial observability. Safety filters that rely on RGB-only world models can fail when the task depends on hidden quantities, such as temperature or whether an opaque container is filled. Multimodal training signals provide safety-relevant information that can shape the latent state and improve downstream control.
             </p>
-          </figure>
+          </figure> -->
 
           <p>
             Latent world models learn compact state representations and dynamics directly from
@@ -352,6 +352,10 @@
             together with auxiliary modalities such as thermal images or tactile readings to study how
             world models degrade as safety-relevant information becomes less observable.
           </p>
+          <p>
+            To enforce these constraints, we deploy latent-space safety controllers that intervene
+            whenever the world model predicts unsafe behavior.
+          </p>
         </div>
       </div>
     </div>
@@ -410,84 +414,20 @@
             <img src="static/images/hw_qual_v3.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
           </figure>
           <p>
-            We evaluate prediction gaps by rolling a world model forward open-loop and measuring
-            how accurately it predicts future failures. RGB-only models can imagine incorrect
-            safety outcomes because they lack hidden state information. Multimodal models, such
-            as RGB+Tactile or RGB+Thermal variants, better preserve the information needed to
-            distinguish unsafe motions from safe ones.
+            Qualitatively, both world models can predict the visual changes caused by a lifting
+            action, but the RGB-only world model falsely imagines that the same action sequence
+            leads to a safety violation. This suggests that its latent representation has a weaker
+            understanding of how actions correlate with downstream safety outcomes.
           </p>
-        </div>
-
-        <div class="columns has-text-justified">
-          <div class="column">
-            <h3 class="title is-5">Current Safety Estimation</h3>
-            <figure class="image is-centered">
-              <img src="static/images/latent_state_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
-            </figure>
-          </div>
-
-          <div class="column">
-            <h3 class="title is-5">Future Safety Prediction</h3>
-            <figure class="image is-centered">
-              <img src="static/images/latent_dynamics_test.png" alt="RGB-only training is unable to understand safety outcomes of actions" width="1100">
-            </figure>
-          </div>
-        </div>
-        <div class="content has-text-justified">
           <p>
-            These diagnostics separate two ways a latent world model can fail: it may not encode
-            the current safety condition, or it may encode enough to classify the present while
-            still failing to predict future unsafe outcomes.
+            We evaluate prediction gaps by providing three timesteps of history from a held-out
+            evaluation set, rolling each world model forward open-loop for 16 timesteps, and
+            measuring how accurately the rollout predicts future safety outcomes.
           </p>
+          <figure class="image is-centered">
+            <img src="static/images/safety_outcome_pred.png" alt="Safety outcome prediction accuracy for RGB-only and multimodal world model rollouts" width="1100">
+          </figure>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- prediction gaps -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Prediction Gaps in Rice Pouring</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            In the rice pouring task, the robot is asked to move an opaque bottle without spilling
-            its contents. A spill is easy to recognize once it happens, but predicting whether a
-            candidate motion will spill depends on a hidden quantity: whether the bottle is filled.
-          </p>
-        </div>
-
-        <div class="columns has-text-justified">
-          <div class="column">
-            <h3 class="title is-4">RGB-Only World Model</h3>
-            <p>
-              RGB-only rollouts can assign the wrong safety outcome to a motion because the bottle's
-              fill state is not visible. This can make the controller overly conservative when the
-              bottle is empty, preventing tilting motions that are actually safe.
-            </p>
-          </div>
-
-          <div class="column">
-            <h3 class="title is-4">Multimodal World Model</h3>
-            <p>
-              Adding tactile information helps the latent state distinguish filled from empty bottles,
-              improving the model's ability to predict which future motions will cause a spill.
-            </p>
-          </div>
-        </div>
-
-        <div class="content has-text-justified">
-          <p>
-            We mitigate these prediction gaps at the controller level using conformal risk
-            calibration. The calibrated intervention threshold controls the false-safe rate, allowing
-            the safety filter to consistently prevent violations while revealing the cost of partial
-            observability: RGB-only models become much more conservative than multimodal models.
-          </p>
-        </div>
-
       </div>
     </div>
   </div>
@@ -568,6 +508,87 @@
           <p>
             This allows us to learn an RGB-only controller that safely prevents overheating in all
             20 hardware trials, while still operating from RGB observations at runtime.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- prediction gap mitigation -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Mitigating Prediction Gaps with Conformal Calibration</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We mitigate prediction gaps at the controller level by calibrating the safety
+            intervention threshold with conformal prediction, controlling the false-safe rate.
+            This lets both RGB-only and multimodal controllers consistently prevent safety
+            violations in the rice pouring task.
+          </p>
+          <figure class="image is-centered">
+            <img src="static/images/conformal_pred.png" alt="Conformal calibration of safety intervention thresholds for rice pouring" width="1100">
+          </figure>
+          <p>
+            The calibration also reveals the cost of partial observability. When the bottle is
+            empty, the RGB-only world model is extremely conservative and prevents tilting motions
+            that are actually safe. The multimodal model can use tactile information to understand
+            that the bottle is empty, allowing safe tilting without spilling.
+          </p>
+        </div>
+
+        <div class="columns has-text-justified">
+          <div class="column">
+            <h3 class="title is-4">RGB-Only Controller</h3>
+            <h4 class="title is-6">Empty Bottle</h4>
+            <video width="100%" controls>
+              <source src="static/videos/rice%20RGB-only%20empty.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <h4 class="title is-6">Filled Bottle</h4>
+            <video width="100%" controls>
+              <source src="static/videos/rice%20RGB-only%20full.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div class="column">
+            <h3 class="title is-4">Multimodal Controller</h3>
+            <h4 class="title is-6">Empty Bottle</h4>
+            <video width="100%" controls>
+              <source src="static/videos/rice%20MM%20empty.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <h4 class="title is-6">Filled Bottle</h4>
+            <video width="100%" controls>
+              <source src="static/videos/rice%20MM%20full.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- takeaway -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Takeaway</h2>
+        <div class="content has-text-justified">
+          <p>
+            These results show that latent world models trained under partial observability can
+            induce myopic safe-control behavior: the controller may avoid seeing failures rather
+            than preventing them, or become overly conservative when hidden state information is
+            missing. While our mitigation strategies are tailored to wax melting and rice pouring,
+            the broader question remains: when is a learned latent representation sufficient for
+            reliable robot control?
           </p>
         </div>
       </div>
