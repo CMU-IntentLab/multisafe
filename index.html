@@ -296,8 +296,7 @@
           <p>
             Latent world models learn compact state representations and dynamics directly from
             high-dimensional observations such as RGB images. Additional modules, including
-            safety classifiers and planning or control policies, can then use these latent
-            states to evaluate actions and intervene before a constraint is violated.
+            safety planning or control policies, can then use these latent states to evaluate actions and intervene before a constraint is violated.
           </p>
           <figure class="image is-centered">
             <img src="static/images/wm_training.png" alt="World Models shape latent states by reconstructing observations">
@@ -334,26 +333,30 @@
         <div class="content has-text-justified">
           <p>
             We evaluate latent safety filters on two hardware environments designed to reveal how
-            partial observability impacts safe behavior.
+            partial observability impacts safe behavior, using controllers that intervene whenever
+            the world model predicts unsafe behavior.
           </p>
-          <figure class="image is-centered">
-	            <img src="static/images/mm_envs.png" alt="Hardware environments for studying partially observable safety constraints">
+          <figure class="image is-centered compact-figure">
+            <img src="static/images/mm_envs.png" alt="Hardware environments for studying partially observable safety constraints">
           </figure>
+        </div>
 
-          <p>
-            In <strong>wax melting</strong>, the robot must warm a plate of wax without overheating it.
-            RGB images show the scene geometry, but thermal observations provide privileged
-            information about temperature that is difficult to infer visually.
-          </p>
-          <p>
-            In <strong>rice pouring</strong>, the robot must pick up and move an opaque bottle without
-            spilling its contents. Whether tilting is safe depends on a hidden fill state: tilting an
-            empty bottle is safe, while tilting a filled bottle can spill. 
-          </p>
-          <p>
-            To enforce these constraints, we deploy latent-space safety controllers that intervene
-            whenever the world model predicts unsafe behavior.
-          </p>
+        <div class="columns has-text-justified hardware-testbeds">
+          <div class="column">
+            <h3 class="title is-5">Wax Melting</h3>
+            <p>
+              The robot must warm a plate of wax without overheating it. RGB images show scene
+              geometry, while thermal observations reveal the hidden temperature.
+            </p>
+          </div>
+
+          <div class="column">
+            <h3 class="title is-5">Rice Pouring</h3>
+            <p>
+              The robot must move an opaque bottle without spilling. Tilting is safe when the bottle
+              is empty, but unsafe when it is filled.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -439,8 +442,8 @@
 
         <div class="content has-text-justified">
           <p>
-            In the wax melting task, a <strong>Franka Research 3 manipulator</strong> must warm a
-            plate of wax without overheating it. The safety controller intervenes when the world
+            In the wax melting task, a robot must warm a
+            plate of wax without melting it. The safety controller intervenes when the world
             model predicts unsafe behavior, but an RGB-only latent state may not encode the hidden
             temperature needed to make that prediction.
           </p>
@@ -603,15 +606,16 @@
         </button>
       </div>
       <pre id="bibtex-code"><code>
-        @misc{kim2025dontknowhurtyou,
-        title={What You Don't Know Can Hurt You: How Well do Latent Safety Filters Understand Partially Observable Safety Constraints?}, 
-        author={Matthew Kim and Kensuke Nakamura and Andrea Bajcsy},
-        year={2025},
-        eprint={2510.06492},
-        archivePrefix={arXiv},
-        primaryClass={cs.RO},
-        url={https://arxiv.org/abs/2510.06492}
-}</code></pre>
+    @misc{
+      kim2026latentworldmodelsunderstand,
+      title={How Well Do Latent World Models Understand Partially Observable Safety Constraints?},
+      author={Matthew Kim and Kensuke Nakamura and Andrea Bajcsy},
+      year={2026},
+      eprint={2510.06492},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2510.06492}
+    }</code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
