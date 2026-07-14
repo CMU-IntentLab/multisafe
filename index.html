@@ -294,17 +294,13 @@
 
           <p>
             Latent world models learn compact state representations and dynamics directly from
-            high-dimensional observations such as RGB images. Additional modules, including
-            safety planning or control policies, can then use these latent states to evaluate actions and intervene before a constraint is violated.
+            high-dimensional observations such as RGB images. Additional modules, such as safe controllers, can then use these latent states to evaluate actions and intervene before a constraint is violated.
           </p>
           <figure class="image is-centered">
             <img src="static/images/wm_training.png" alt="World Models shape latent states by reconstructing observations">
           </figure>
           <p>
-            However, the controller can only be as reliable as the latent representation it receives.
-            In a wax melting task, an RGB image may not reveal whether the wax is close to overheating.
-            In a rice pouring task, an opaque bottle can look the same whether it is full or empty,
-            even though the safe action depends on that hidden fill state.
+            However, when the latent representation provided to the modules are low quality (e.g. do not contain safety-critical information), the downstream modules may fail to make optimal decisions. 
           </p>
           <p>
             We call these failures <i>estimation gaps</i> when the latent state cannot infer the
